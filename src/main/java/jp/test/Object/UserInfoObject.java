@@ -7,9 +7,17 @@ public class UserInfoObject {
 	public int userId;
 	public String name;
 	public String sex;
-	public Date birthday;
+	public String birthday;
+	public String postnumber;
 	public String address;
 
+	public String getPostnumber() {
+		return postnumber;
+	}
+
+	public void setPostnumber(String postnumber) {
+		this.postnumber = postnumber;
+	}
 	public int getUserId() {
 		return userId;
 	}
@@ -34,11 +42,11 @@ public class UserInfoObject {
 		this.sex = sex;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

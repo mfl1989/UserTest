@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+<style>
+body {
+	direction: ltr;
+}
+
+​
+.flex-container {
+	display: -webkit-flex;
+	display: flex;
+	width: 800px;
+	height: 600px;
+	background-color: lightgrey;
+}
+​
+</style>
+</head>
+
+<body>
+	<form th:action="@{/createUserInfo}" method="POST">
+	<div class="col-md-5">
+		<h1>新規</h1>
+		<div class="input-group mb-4">
+			<span class="input-group-text" id="basic-addon1">名前</span> <input
+				type="text" class="form-control" name="name" placeholder="name"
+				aria-label="name" aria-describedby="basic-addon1">
+		</div>
+		<div class="input-group mb-4">
+			<span class="input-group-text" id="basic-addon3">性別</span> <input
+				type="text" class="form-control"  name="sex" placeholder="sex" aria-label="sex"
+				aria-describedby="basic-addon3">
+		</div>
+		<div class="input-group mb-4">
+			<span class="input-group-text" id="basic-addon2">生年月日</span> <input
+				type="date" class="form-control" name="birthday" placeholder="birthday"
+				aria-label="birthday" aria-describedby="basic-addon2">
+		</div>
+		<div class="input-group mb-4">
+			<span class="input-group-text" id="basic-addon3">郵便番号</span> <input
+				type="text" class="form-control" name="postnumber" placeholder="postnumber"
+				aria-label="postnumber" aria-describedby="basic-addon3">
+		</div>
+		<div class="input-group mb-4">
+			<span class="input-group-text" id="basic-addon3">住所</span> <input
+				type="text" class="form-control" name="address" placeholder="address"
+				aria-label="address" aria-describedby="basic-addon3">
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">登録</button>
+	<button type="reset" value="reset" class="btn btn-warning">reset</button>
+	</form>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+		integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+		crossorigin="anonymous"></script>
+</body>
+</html>

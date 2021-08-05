@@ -3,8 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
 </head>
 <body>
-<h1>天气不错</h1>
+	<h1>天气不错</h1>
+<div class="position-relative ">
+	<div class="input-group mb-3">
+	<div class="col-md-1 offset-md-1" >
+		<span class="input-group-text " id="basic-addon1">名前</span>
+		 <input type="text" class="form-control" placeholder="name" aria-label="name"
+			aria-describedby="basic-addon1"> 
+			</div>
+			<div class="col-md-1 offset-md-1">
+			<span class="input-group-text " id="basic-addon2">生年月日</span>
+			 <input type="text" class="form-control" placeholder="birthday"
+			aria-label="birthday" aria-describedby="basic-addon2">
+			</div>
+			<div class="col-md-1 offset-md-1">
+			 <span class="input-group-text " id="basic-addon3">郵便番号</span>
+			 <input type="text" class="form-control" placeholder="postnumber"
+			aria-label="postnumber" aria-describedby="basic-addon3">
+	
+	</div>
+	</div>
+	</div>
+	<div>
+		<button type="button" class="btn btn-primary  text-black offset-md-10">検索</button>
+	</div>
+
+	<hr>
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-1 offset-md-1 bg-primary text-black" >検索一覧</div>
+			<div class="col-md-2 offset-md-6 bg-primary text-black">一括ダウンロード</div>
+			<div class="col-md-1  bg-primary text-black"><a class=" text-black"href ="/createuserinfo">追加</a></div>
+
+		</div>
+	</div>
+	<hr  style="width:80%; margin-left:10% !important; margin-right:10% !important;" />
+	<!-- <div>
+		<label for="exampleColorInput" class="form-label">Color picker</label>
+		<input type="color" class="form-control form-control-color"
+			id="exampleColorInput" value="#563d7c" title="Choose your color">
+
+	</div> -->
+	
+	<table class="table table-primary table-hover" style="width:80%; margin-left:10% !important; margin-right:10% !important;"  >
+  <thead>
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">名前</th>
+      <th scope="col">生年月日</th>
+      <th scope="col">性別</th>
+      <th scope="col">郵便番号</th>
+      <th scope="col">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+		
+  </tbody>
+</table>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+		integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+		crossorigin="anonymous"></script>
 </body>
 </html>

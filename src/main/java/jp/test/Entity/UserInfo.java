@@ -1,12 +1,11 @@
 package jp.test.Entity;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -20,8 +19,17 @@ public class UserInfo {
 	public int userId;
 	public String name;
 	public String sex;
-	public Date birthday;
+	public String birthday;
+	public String postnumber;
 	public String address;
+
+	public String getPostnumber() {
+		return postnumber;
+	}
+
+	public void setPostnumber(String postnumber) {
+		this.postnumber = postnumber;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -47,11 +55,11 @@ public class UserInfo {
 		this.sex = sex;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 
