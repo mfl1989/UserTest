@@ -1,9 +1,11 @@
 package jp.test.Controller;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,45 +18,40 @@ import jp.test.Service.UserInfoService;
 public class UserInfoController {
 	@Autowired
 	UserInfoService userInfoService;
-
-	@RequestMapping("/userpage")
-	public ModelAndView userPageView() {
-
-		ModelAndView mv = new ModelAndView("userpage");
-
-		return mv;
-
-	}
-/**
- * create user info
- * @param name
- * @param sex
- * @param birthday
- * @param postnumber
- * @param address
- * @return
- */
-	@PostMapping("/createUserInfo")
-	public String createUserInfo(
-			@RequestParam("name") String name,
-			@RequestParam("sex") String sex,
-			@RequestParam("birthday") String birthday,
-			@RequestParam("postnumber") String postnumber,
-			@RequestParam("address") String address) {
-				
-		UserInfoObject userinfoobj =new UserInfoObject();
+	
+	@RequestMapping("/userinfo/{id}")
+	public ModelAndView userInfo(@PathVariable ("id")int userId) {
 		
+		ModelAndView mv =new ModelAndView("userinfo");
+		UserInfoObject userInfoObj =userInfoService.findInfoById(userId);
+		System.out.println(userInfoObj.userId);
+		mv.addObject("userInfo", userInfoObj);
+		return mv ;
+	}
+	
+	@PostMapping("/InfoEdit/{id}")
+	public String InfoEdit(@PathVariable("id") int userId,
+			@RequestParam("name")String name,
+			@RequestParam("sex")String sex,
+			@RequestParam("birthday")Date birthday,
+			@RequestParam("postnumber")String postnumber,
+			@RequestParam("address")String address
+			) {
+		 UserInfoObject userinfoobj =new UserInfoObject();
+		userinfoobj.setUserId(userId);
 		userinfoobj.setName(name);
 		userinfoobj.setSex(sex);
 		userinfoobj.setBirthday(birthday);
 		userinfoobj.setPostnumber(postnumber);
 		userinfoobj.setAddress(address);
-		userInfoService.getInfoData(userinfoobj);
+		
+		
+		userInfoService.uploadInfo(userId,userinfoobj);
+		
+		
 		
 		
 		return "redirect:/userpage";
 	}
-	
-	
-	
+
 }
