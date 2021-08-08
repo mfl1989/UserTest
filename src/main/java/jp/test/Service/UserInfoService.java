@@ -37,7 +37,6 @@ public class UserInfoService {
 		userinfo.setPostnumber(userinfoobj.getPostnumber());
 		userinfo.setName(userinfoobj.getName());
 		Timestamp now = new Timestamp(System.currentTimeMillis());
-		System.out.println(now);
 		userinfo.setCreateDate(now);
 		userInfoRep.saveAndFlush(userinfo);
 
@@ -154,8 +153,11 @@ public class UserInfoService {
 			UserInfoObject userInfoObj = new UserInfoObject();
 			userInfoObj.setUserId(result.getUserId());
 			userInfoObj.setName(result.getName());
+			userInfoObj.setSex(result.getSex());
 			userInfoObj.setBirthday(result.getBirthday());
-			userInfoObj.setPostnumber(result.getPostnumber());
+			StringBuffer stringBuilder1=new StringBuffer(result.getPostnumber());
+			StringBuffer sb=stringBuilder1.insert(3,"-");
+			userInfoObj.setPostnumber(sb.toString());
 			listuser.add(userInfoObj);
 		}
 		return listuser;

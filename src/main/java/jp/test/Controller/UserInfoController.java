@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +27,16 @@ public class UserInfoController {
 		mv.addObject("userInfo", userInfoObj);
 		return mv ;
 	}
-	
+	/**
+	 * 情報を更新する
+	 * @param userId
+	 * @param name
+	 * @param sex
+	 * @param birthday
+	 * @param postnumber
+	 * @param address
+	 * @return
+	 */
 	@PostMapping("/InfoEdit/{id}")
 	public String InfoEdit(@PathVariable("id") int userId,
 			@RequestParam("name")String name,
@@ -42,7 +50,9 @@ public class UserInfoController {
 		userinfoobj.setName(name);
 		userinfoobj.setSex(sex);
 		userinfoobj.setBirthday(birthday);
-		userinfoobj.setPostnumber(postnumber);
+		String str=postnumber;
+		String str1=str.replaceAll("[\\pP\\p{Punct}]","");
+		userinfoobj.setPostnumber(str1);
 		userinfoobj.setAddress(address);
 		
 		

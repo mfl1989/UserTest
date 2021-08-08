@@ -62,5 +62,14 @@ public class UserInfoObject {
 		this.updateDate = updateDate;
 	}
 	
+	/**
+	 *	 キャラクター変換"-"
+	 * @param insert
+	 */
+	public void setPostnumber(StringBuffer insert) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+	
 
 }

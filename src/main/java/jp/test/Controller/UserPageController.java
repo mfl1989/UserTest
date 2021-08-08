@@ -1,6 +1,5 @@
 package jp.test.Controller;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,33 +28,6 @@ public class UserPageController {
 
 	}
 
-	/**
-	 * create user info
-	 * 
-	 * @param name
-	 * @param sex
-	 * @param birthday
-	 * @param postnumber
-	 * @param address
-	 * @return
-	 */
-	@PostMapping("/createUserInfo")
-	public String createUserInfo(@RequestParam("name") String name, @RequestParam("sex") String sex,
-			@RequestParam("birthday") Date birthday, @RequestParam("postnumber") String postnumber,
-			@RequestParam("address") String address) {
-
-		UserInfoObject userinfoobj = new UserInfoObject();
-
-		userinfoobj.setName(name);
-		userinfoobj.setSex(sex);
-		userinfoobj.setBirthday(birthday);
-		userinfoobj.setPostnumber(postnumber);
-		userinfoobj.setAddress(address);
-
-		userInfoService.getInfoData(userinfoobj);
-
-		return "redirect:/userpage";
-	}
 
 	/**
 	 * 削除
@@ -77,22 +49,23 @@ public class UserPageController {
 				if (postnumber.equals("")) {
 
 				}
-				else {
-					
-					List<UserInfoObject> list = userInfoService.findByPostnumber(postnumber);
-					
-				}
-				
+//				else {
+//					
+//					List<UserInfoObject> list1 = userInfoService.findByPostnumber(postnumber);
+//					
+//				}
+
 			}
-			
+
 			else {
-				List<UserInfoObject> list = userInfoService.findByBirthday(birthday);
-				
+				List<UserInfoObject> list2 = userInfoService.findByBirthday(birthday);
+
 			}
-			
+
 		} else {
 			// name欄に値があるときに，結果を返却する
 			List<UserInfoObject> list = userInfoService.findByName(name);
+			
 			mav.addObject("info", list);
 		}
 
