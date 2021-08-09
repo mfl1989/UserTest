@@ -1,5 +1,9 @@
 package jp.test.Controller;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +32,6 @@ public class UserPageController {
 
 	}
 
-
 	/**
 	 * 削除
 	 */
@@ -40,36 +43,65 @@ public class UserPageController {
 		return "redirect:/userpage";
 	}
 
+//	@PostMapping("/search")
+//	public ModelAndView secrch(@RequestParam("userName") String name, @RequestParam("birthday") String birthday,
+//			@RequestParam("postnumber") String postnumber) {
+//		ModelAndView mav = new ModelAndView("userpage");
+//
+//		java.sql.Date birthdayDate = null;
+//
+//		if (!birthday.equals("") && birthday != null) {
+//			birthdayDate = java.sql.Date.valueOf(birthday);
+//		}
+//		System.out.println(name + ":" + birthday + ":" + postnumber);
+//		// 検索
+//		List<UserInfoObject> userInfoList = userInfoService.searchUserInfo(name, birthdayDate, postnumber);
+//		mav.addObject("info", userInfoList);
+//
+//		return mav;
+//
+//	}
+	
 	@PostMapping("/search")
-	public ModelAndView secrch(@RequestParam("key1") String name, @RequestParam("key2") String birthday,
-			@RequestParam("key3") String postnumber) {
+	public ModelAndView secrch(@RequestParam("userName") String name, @RequestParam("birthday") String birthday,
+			@RequestParam("postnumber") String postnumber) {
 		ModelAndView mav = new ModelAndView("userpage");
-		if (name.equals("")) {
-			if (birthday.equals("")) {
-				if (postnumber.equals("")) {
 
-				}
-//				else {
-//					
-//					List<UserInfoObject> list1 = userInfoService.findByPostnumber(postnumber);
-//					
-//				}
+		
 
-			}
-
-			else {
-				List<UserInfoObject> list2 = userInfoService.findByBirthday(birthday);
-
-			}
-
-		} else {
-			// name欄に値があるときに，結果を返却する
-			List<UserInfoObject> list = userInfoService.findByName(name);
-			
-			mav.addObject("info", list);
+		if (!birthday.equals("") && birthday != null) {
+		
 		}
+		SimpleDateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+		String s=birthday;
+		Date date=null;
+		
+		try {
+			date=fmt.parse(s);
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		// 検索
+		List<UserInfoObject> userInfoList = userInfoService.searchUserInfo(name, date, postnumber);
+		mav.addObject("info", userInfoList);
 
 		return mav;
+
+	}
+
+	
+	
+
+	@RequestMapping("/csvdownload")
+	public void csvOutPut() {
+
+		try {
+			userInfoService.testCsv();
+		} catch (IllegalArgumentException | IllegalAccessException | IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 	}
 

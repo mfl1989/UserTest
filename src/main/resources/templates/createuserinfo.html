@@ -25,8 +25,6 @@ body {
 </style>
 </head>
 <style>
-
-
 .divcss1-scroll {
 	margin-top: 30px;
 	position: absolute;
@@ -36,9 +34,15 @@ body {
 	height: 85%;
 	width: 90%;
 }
-#divcss5_right{ float:right;width:50px;border:1px solid #00F;height:5px} 
-.main{
-	
+
+#divcss5_right {
+	float: right;
+	width: 50px;
+	border: 1px solid #00F;
+	height: 5px
+}
+
+.main {
 	background-color: #fff;
 	border-radius: 5px;
 	width: 300px;
@@ -50,75 +54,87 @@ body {
 	right: 80px;
 	bottom: 80px;
 }
-.input-group-text{text-align:center; width: 90px; height: 37.68px; }
-.form-control{width: 240px; height:37.68px;} 
+
+.input-group-text {
+	text-align: center;
+	width: 90px;
+	height: 37.68px;
+}
+
+.form-control {
+	width: 240px;
+	height: 37.68px;
+}
 </style>
 <body>
 	<div class="divcss1-scroll">
-	<!-- <div class="main"> -->
-	<!--  <div id="divcss5_right">  -->
-	
-		<form th:action="@{/createUserInfo}" method="POST">
-			<div class="col-md-5">
-				<h1>新規</h1>
-				<div class="input-group mb-4">
-					<span class="input-group-text" id="basic-addon1">名前</span> <input
-						type="text" class="form-control" name="name" placeholder="name"
-						aria-label="name" aria-describedby="basic-addon1">
-				</div>
-				<div class="input-group mb-4">
-					<span class="input-group-text" id="basic-addon3">性別</span> <input
-						type="text" class="form-control" name="sex" placeholder="sex"
-						aria-label="sex" aria-describedby="basic-addon3">
-				</div>
-				<div class="input-group mb-4">
-					<span class="input-group-text" id="basic-addon2">生年月日</span> <input
-						type="date" class="form-control" name="birthday"
-						placeholder="birthday" aria-label="birthday"
-						aria-describedby="basic-addon2">
-				</div>
-				<div class="input-group mb-4">
-					<span class="input-group-text" id="basic-addon3">郵便番号</span> <input
-						type="text" class="form-control" name="postnumber"
-						placeholder="postnumber" aria-label="postnumber"
-						aria-describedby="basic-addon3">
-				</div>
-				<div class="input-group mb-4">
-					<span class="input-group-text" id="basic-addon3">住所</span>
-					 <textarea class="form-control"  name="address"
-						placeholder="address" aria-label="address"
-						aria-describedby="basic-addon3">
+
+		<div style="position: relative; padding-top: 20px; left: 323px">
+
+			<form th:action="@{/createUserInfo}" method="POST">
+				<div class="col-md-5">
+					<h1>新規</h1>
+					<div class="input-group mb-4">
+						<span class="input-group-text" id="basic-addon1">名前</span> <input
+							type="text" class="form-control" name="name" placeholder="name"
+							aria-label="name" aria-describedby="basic-addon1">
+					</div>
+					<div class="input-group mb-4">
+						<span class="input-group-text" id="basic-addon3">性別</span> <input
+							type="text" class="form-control" name="sex" placeholder="sex"
+							aria-label="sex" aria-describedby="basic-addon3">
+					</div>
+					<div class="input-group mb-4">
+						<span class="input-group-text" id="basic-addon2">生年月日</span> <input
+							type="date" class="form-control" name="birthday"
+							placeholder="birthday" aria-label="birthday"
+							aria-describedby="basic-addon2">
+					</div>
+					<div class="input-group mb-4">
+						<span class="input-group-text" id="basic-addon3">郵便番号</span> <input
+							type="text" class="form-control" name="postnumber"
+							placeholder="postnumber" aria-label="postnumber"
+							aria-describedby="basic-addon3">
+					</div>
+					<div class="input-group mb-4">
+						<span class="input-group-text" id="basic-addon3">住所</span>
+						<textarea class="form-control" name="address"
+							placeholder="address" aria-label="address"
+							aria-describedby="basic-addon3">
 						</textarea>
+					</div>
 				</div>
-			</div>
+				<div style="position: relative; padding-top: 20px; left: 190px">
+					<button type="reset" value="reset" class="btn btn-warning">reset</button>
 
-			<button type="reset" value="reset" class="btn btn-warning">reset</button>
-
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-				data-bs-target="#exampleModal">登録</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true" style="text-align:center;">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="mm" >
-							<div class="modal-title" id="exampleModalLabel" >操作提示</div>
-							<hr>
-						</div>
-						<div class="modal-body">保存してもよろしいですか？</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger"
-								data-bs-dismiss="modal" style="position:relative; right:200px">Cancel</button>
-							<button type="submit" class="btn btn-primary"style="position:relative; right:160px">ok</button>
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary"
+						data-bs-toggle="modal" data-bs-target="#exampleModal">登録</button>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true"
+					style="text-align: center;">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="mm">
+								<div class="modal-title" id="exampleModalLabel">操作提示</div>
+								<hr>
+							</div>
+							<div class="modal-body">保存してもよろしいですか？</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger"
+									data-bs-dismiss="modal"
+									style="position: relative; right: 200px">Cancel</button>
+								<button type="submit" class="btn btn-primary"
+									style="position: relative; right: 160px">ok</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-		</form>
-	</div>
+			</form>
+		</div>
 	</div>
 
 	<script

@@ -10,71 +10,86 @@
 	crossorigin="anonymous">
 </head>
 <style>
-	
-	
-#divcss5{position:absolute;left:120px;top:50px border-style:double;
-						border:2px double #000;height:75%;width:85%;}
-	
-	.divcss5-scroll{overflow:scroll; margin-top:30px;position:absolute;left:80px;top:50px 
-					border-style:double;border:2px double #000;height:75%;width:90%;}
+#divcss5 {
+	position: absolute;
+	left: 120px;
+	top: 50px border-style:double;
+	border: 2px double #000;
+	height: 75%;
+	width: 85%;
+}
+
+.divcss5-scroll {
+	overflow-y: scroll;
+	margin-top: 30px;
+	position: absolute;
+	left: 80px;
+	top: 50px border-style:double;
+	border: 2px double #000;
+	height: 75%;
+	width: 90%;
+}
+/* .input-group-text{text-align:center; width: 90px; height: 37.68px; }
+.form-control{width: 140px; height:37.68px;} 		 */
 </style>
-<body  >
+<body>
 
 	<div class="divcss5-scroll">
 
-<form method="post" th:action="@{/search}">
-	<div class="position-relative ">
-		<div class="input-group mb-3" style=" padding-top: 50px;padding-left: 50px; padding-right: 50px; margin-right:20px;">
-			
-				<span class="input-group-text " id="basic-addon1">名前</span> <input
-					type="text" class="form-control" placeholder="name"
-					aria-label="name" aria-describedby="basic-addon1" id="price_to" name="key1" >
-			
-			
-				<span class="input-group-text " id="basic-addon2">生年月日</span> <input
-					type="date" class="form-control" placeholder="birthday"
-					aria-label="birthday" aria-describedby="basic-addon2" id="price_to" name="key2" >
-			
-			
-				<span class="input-group-text " id="basic-addon3">郵便番号</span> <input
-					type="text" class="form-control" placeholder="postnumber"
-					aria-label="postnumber" aria-describedby="basic-addon3" id="price_to" name="key3" >
-</div>
-	</div>		
-		
-	
-	<div>
-		<button type="submit" class="btn btn-primary  text-black offset-md-10">検索</button>
-	</div>
-	 </form>
-	
-	<hr style="width: 90%; margin-left: 5% !important; margin-right: 5% !important;">
+		<form method="post" th:action="@{/search}">
+			<div class="position-relative ">
+				<div class="input-group mb-3"
+					style="padding-top: 50px; padding-left: 50px; padding-right: 50px; margin-right: 20px;">
 
-	<div class="container-fluid">
+					<span class="input-group-text " id="basic-addon1">名前</span> <input
+						type="text" class="form-control" placeholder="name"
+						aria-label="name" aria-describedby="basic-addon1" id="price_to"
+						name="userName"> <span class="input-group-text "
+						id="basic-addon2">生年月日</span> <input type="date"
+						class="form-control" placeholder="birthday" aria-label="birthday"
+						aria-describedby="basic-addon2" id="price_to" name="birthday">
 
-		<div class="row">
-			<div class="col-md-1 offset-md-1  text-black"><strong>検索一覧</strong></div>
-			<div class="col-md-2 offset-md-6  ">
-   <a href="#" class="btn btn-primary btn-lg" role="button" th:if="${info} != null">一括ダウンロード</a>
-   <a href="#" class="btn btn-secondary btn-lg  disabled" role="button" th:if="${info} == null">一括ダウンロード</a></div>
-			<div class="col-md-1  ">
-				<a type="button" class="btn btn-primary text-black" href="/createuserinfo">追加</a>
+
+					<span class="input-group-text " id="basic-addon3">郵便番号</span> <input
+						type="text" class="form-control" placeholder="postnumber"
+						aria-label="postnumber" aria-describedby="basic-addon3"
+						id="price_to" name="postnumber">
+				</div>
 			</div>
 
+		
+	<div style="position: relative; left: 921px">
+		<button type="submit" class="btn btn-primary  text-black ">検索</button>
+	</div>
+	</form>
+
+	<hr
+		style="width: 90%; margin-left: 5% !important; margin-right: 5% !important;">
+
+
+
+	<div class="row ">
+		<div class="col-md-1  "
+			style="position: relative; left: 130px; padding-top: 10px;">
+			<strong>検索一覧</strong>
 		</div>
+		<div class="col-md-2  " style="position: relative; left: 660px">
+			<a th:href="@{/csvdownload}" class="btn btn-primary " role="button"
+				th:if="${info} != null">一括ダウンロード</a> <a th:href="@{/csvdownload}"
+				class="btn btn-secondary   disabled" role="button"
+				th:if="${info} == null">一括ダウンロード</a>
+		</div>
+		<div class="col-md-1  " style="position: relative; left: 643px">
+			<a type="button" class="btn btn-primary text-black"
+				href="/createuserinfo">追加</a>
+		</div>
+
 	</div>
 	<hr
 		style="width: 80%; margin-left: 10% !important; margin-right: 10% !important;" />
-	<!-- <div>
-		<label for="exampleColorInput" class="form-label">Color picker</label>
-		<input type="color" class="form-control form-control-color"
-			id="exampleColorInput" value="#563d7c" title="Choose your color">
-
-	</div> -->
-
 
 	<table class="table table-bordered  table-hover"
-		style="text-align:center; width: 80%; margin-left: 10% !important; margin-right: 10% !important;">
+		style="text-align: center; width: 80%; margin-left: 10% !important; margin-right: 10% !important;">
 		<thead>
 			<tr class="table-primary">
 				<th scope="col">No.</th>
@@ -83,7 +98,7 @@
 				<th scope="col">生年月日</th>
 				<th scope="col">郵便番号</th>
 				<th scope="col">操作</th>
-				
+
 			</tr>
 		</thead>
 		<tbody>
@@ -94,14 +109,16 @@
 				<td><p th:text="${item?.sex}"></p></td>
 				<td><p th:text="${item?.birthday}"></p></td>
 				<td><p th:text="${item?.postnumber}"></p></td>
-				<td><a  type="button" class="btn btn-primary"th:href="@{/userinfo/{id}/(id=${item.userId})}">詳細</a>
-				<a  type="button" class="btn btn-danger" th:href="@{/deleteinfo/{id}(id=${item.userId})}">削除</a></td>
-				
+				<td><a type="button" class="btn btn-primary"
+					th:href="@{/userinfo/{id}/(id=${item.userId})}">詳細</a> <a
+					type="button" class="btn btn-danger"
+					th:href="@{/deleteinfo/{id}(id=${item.userId})}">削除</a></td>
+
 			</tr>
 
 		</tbody>
 	</table>
-	
+
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
