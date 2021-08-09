@@ -2,7 +2,7 @@ package jp.test.Object;
 
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 public class UserInfoObject {
 

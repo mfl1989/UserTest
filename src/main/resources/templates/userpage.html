@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+<meta >
 <title>Insert title here</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
@@ -67,17 +67,17 @@
 		style="width: 90%; margin-left: 5% !important; margin-right: 5% !important;">
 
 
-
+<form th:action="@{/csvdownload}" th:object="${info}" method="post">
 	<div class="row ">
 		<div class="col-md-1  "
 			style="position: relative; left: 130px; padding-top: 10px;">
 			<strong>検索一覧</strong>
 		</div>
 		<div class="col-md-2  " style="position: relative; left: 660px">
-			<a th:href="@{/csvdownload}" class="btn btn-primary " role="button"
-				th:if="${info} != null">一括ダウンロード</a> <a th:href="@{/csvdownload}"
+			<button type="submit"  class="btn btn-primary " role="button"
+				th:if="${info} != null">一括ダウンロード</button> <button 
 				class="btn btn-secondary   disabled" role="button"
-				th:if="${info} == null">一括ダウンロード</a>
+				th:if="${info} == null">一括ダウンロード</button>
 		</div>
 		<div class="col-md-1  " style="position: relative; left: 643px">
 			<a type="button" class="btn btn-primary text-black"
@@ -118,7 +118,7 @@
 
 		</tbody>
 	</table>
-
+</form>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"

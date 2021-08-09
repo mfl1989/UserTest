@@ -5,15 +5,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
-
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jp.test.Entity.UserInfo;
@@ -45,7 +50,6 @@ public class UserInfoService {
 		userInfoRep.saveAndFlush(userinfo);
 
 	}
-
 
 	/**
 	 * ユーザー情報削除
@@ -98,88 +102,92 @@ public class UserInfoService {
 	}
 
 	/**
-	 * 検索
+	 * csvで出力
 	 * 
+	 * @param <T>
+	 * @param titles
+	 * @param propertys
+	 * @param userlist
+	 * @return
+	 * @throws IOException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
+	public static void exportCsv(String titles, String[] propertys, List<String> userlist)
+			throws IOException, IllegalArgumentException, IllegalAccessException {
+		File file = new File("d:\\test.csv");
+		OutputStreamWriter ow = new OutputStreamWriter(new FileOutputStream(file), "utf-8");
+		ow.write(titles);
+		for(String l : userlist) {
+			ow.write(l);
+			ow.flush();
+		}
+		ow.close();
+	}
+
+	/**
+	 * ｃｓｖ出力内容を設定
+	 * 
+	 * @throws IOException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
+	public void testCsv(List<UserInfoObject> lists) throws IOException, Exception, Exception {
+		String titles =  "No.,名前, 性別, 生年月日, 郵便番号\n";
+		String[] propertys = new String[] { "userId", "name", "sex", "birthday", "postnubmber" };
+//		List<UserInfo> lists = userInfoRep.findAll();
+		List<String> userlist = new ArrayList<String>();
+		for (UserInfoObject list : lists) {
+			String row = new String();
+			StringBuffer stringBuilder1 = new StringBuffer(list.getPostnumber());
+			stringBuilder1.insert(3, "-");
+			list.setPostnumber(stringBuilder1.toString());
+			row =  list.getUserId()+","+list.getName()+","+list.getSex()+","+list.getBirthday()+","+list.getPostnumber()+"\n";
+			userlist.add(row);
+			System.out.println(row);
+		}
+		UserInfoService.exportCsv(titles, propertys, userlist);
+
+	}
+
+	/**
+	 * 検索
 	 * @param name
 	 * @param birthday
 	 * @param postnumber
 	 * @return
 	 */
 	public List<UserInfoObject> searchUserInfo(String name, Date birthday, String postnumber) {
-		
-		List<UserInfo> results = userInfoRep.searchUserInfo(name, birthday, postnumber);
-		List<UserInfoObject> userlist = new ArrayList<>();
 
-		for (UserInfo result : results) {
-			UserInfoObject userInfoObj = new UserInfoObject();
-			userInfoObj.setUserId(result.getUserId());
-			userInfoObj.setName(result.getName());
-			userInfoObj.setSex(result.getSex());
-			userInfoObj.setBirthday(result.getBirthday());
-			StringBuffer stringBuilder1=new StringBuffer(result.getPostnumber());
-			stringBuilder1.insert(3,"-");
-			userInfoObj.setPostnumber(stringBuilder1.toString());
-			userlist.add(userInfoObj);
-		}
-		return userlist;
-	}
+		/**
+		 * root ：要查询的类型 query：添加查询条件 cb: 构建条件 specification为一个匿名内部类
+		 */
+		Specification<UserInfo> specification = new Specification<UserInfo>() {
 
-/**
- * csvで出力
- * @param <T>
- * @param titles
- * @param propertys
- * @param list
- * @return
- * @throws IOException
- * @throws IllegalArgumentException
- * @throws IllegalAccessException
- */
-	public static <T> String exportCsv(String[] titles, String[] propertys, List<T> list)
-			throws IOException, IllegalArgumentException, IllegalAccessException {
-		File file = new File("d:\\test.csv");
-		// 构建输出流，同时指定编码
-		OutputStreamWriter ow = new OutputStreamWriter(new FileOutputStream(file), "utf-8");
+			@Override
+			public Predicate toPredicate(Root<UserInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
-		// csv文件是逗号分隔，除第一个外，每次写入一个单元格数据后需要输入逗号
-		for (String title : titles) {
-			ow.write(title);
-			ow.write(",");
-		}
-		// 写完文件头后换行
-		ow.write("\r\n");
-		// 写内容
-		for (Object obj : list) {
-			// 利用反射获取所有字段
-			Field[] fields = obj.getClass().getDeclaredFields();
-			for (String property : propertys) {
-				for (Field field : fields) {
-					// 设置字段可见性
-					field.setAccessible(true);
-					if (property.equals(field.getName())) {
-						ow.write(field.get(obj).toString());
-						ow.write(",");
-						continue;
-					}
+				List<Predicate> predicates = new ArrayList<Predicate>();
+
+				if (!name.equals("") && name != null) {
+					predicates.add(cb.like(root.get("name"), "%" + name + "%"));
 				}
+				if (birthday != null) {
+					predicates.add(cb.equal(root.get("birthday"), birthday));
+				}
+				if (!postnumber.equals("") && postnumber != null) {
+					predicates.add(cb.equal(root.get("postnumber"), postnumber));
+				}
+				Predicate[] pre = new Predicate[predicates.size()];
+
+				query.orderBy(cb.desc(root.get("userId")));
+
+				return query.where(predicates.toArray(pre)).getRestriction();
+
 			}
-			// 写完一行换行
-			ow.write("\r\n");
-		}
-		ow.flush();
-		ow.close();
-		return "0";
-	}
-/**
- * ｃｓｖ出力内容を設定
- * @throws IOException
- * @throws IllegalArgumentException
- * @throws IllegalAccessException
- */
-	public void testCsv() throws IOException, IllegalArgumentException, IllegalAccessException {
-		String[] titles = new String[] { "No.", "名前", "性別", "生年月日", "郵便番号" };
-		String[] propertys = new String[] { "userId", "name", "sex", "birthday", "postnubmber" };
-		List<UserInfo> lists = userInfoRep.findAll();
+		};
+
+		List<UserInfo> lists = userInfoRep.findAll(specification);
 		List<UserInfoObject> userlist = new ArrayList<UserInfoObject>();
 		for (UserInfo list : lists) {
 			UserInfoObject userobj = new UserInfoObject();
@@ -188,12 +196,12 @@ public class UserInfoService {
 			userobj.setName(list.getName());
 			userobj.setSex(list.getSex());
 			userobj.setBirthday(list.getBirthday());
-			userobj.setPostnumber(list.getPostnumber());
+			StringBuffer stringBuilder1 = new StringBuffer(list.getPostnumber());
+			stringBuilder1.insert(3, "-");
+			userobj.setPostnumber(stringBuilder1.toString());
 			userlist.add(userobj);
 
 		}
-		UserInfoService.exportCsv(titles, propertys, userlist);
-
+		return userlist;
 	}
-
 }
