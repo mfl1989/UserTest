@@ -8,6 +8,8 @@
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+	</script>
 </head>
 <style>
 #divcss5 {
@@ -43,17 +45,20 @@
 
 					<span class="input-group-text " id="basic-addon1">名前</span> <input
 						type="text" class="form-control" placeholder="name"
-						aria-label="name" aria-describedby="basic-addon1" id="price_to"
-						name="userName"> <span class="input-group-text "
-						id="basic-addon2">生年月日</span> <input type="date"
+						aria-label="name" aria-describedby="basic-addon1" id="name"
+						name="name" th:value ="${name}"> <span class="input-group-text "
+						id="basic-addon2">生年月日</span>
+						
+						 <input type="date"
 						class="form-control" placeholder="birthday" aria-label="birthday"
-						aria-describedby="basic-addon2" id="price_to" name="birthday">
+						aria-describedby="basic-addon2" id="birthday" name="birthday"
+						th:value ="${birthday}">
 
 
 					<span class="input-group-text " id="basic-addon3">郵便番号</span> <input
 						type="text" class="form-control" placeholder="postnumber"
 						aria-label="postnumber" aria-describedby="basic-addon3"
-						id="price_to" name="postnumber">
+						id="postnumber" name="postnumber" th:value ="${postnumber}">
 				</div>
 			</div>
 
@@ -67,17 +72,21 @@
 		style="width: 90%; margin-left: 5% !important; margin-right: 5% !important;">
 
 
-<form th:action="@{/csvdownload}" th:object="${info}" method="post">
+<!-- <form th:action="@{/csvdownload}" th:object="${info}" method="post"> -->
+<!-- <form  th:object="${info}"> -->
 	<div class="row ">
 		<div class="col-md-1  "
 			style="position: relative; left: 130px; padding-top: 10px;">
 			<strong>検索一覧</strong>
 		</div>
 		<div class="col-md-2  " style="position: relative; left: 660px">
-			<button type="submit"  class="btn btn-primary " role="button"
-				th:if="${info} != null">一括ダウンロード</button> <button 
+			<button  class="btn btn-primary "  role="button"
+				th:if="${info} != null"   onclick="csv()"
+				>一括ダウンロード</button> 
+				
+			<button 
 				class="btn btn-secondary   disabled" role="button"
-				th:if="${info} == null">一括ダウンロード</button>
+				th:if="${info} == null" >一括ダウンロード</button>
 		</div>
 		<div class="col-md-1  " style="position: relative; left: 643px">
 			<a type="button" class="btn btn-primary text-black"
@@ -118,7 +127,7 @@
 
 		</tbody>
 	</table>
-</form>
+<!-- </form> -->
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
@@ -133,4 +142,30 @@
 		integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
 		crossorigin="anonymous"></script>
 </body>
+
+
+ <script>
+
+  function csv()
+   { 
+    var name = $('#name').val();
+    var birthday = $('#birthday').val();
+    var postnumber = $('#postnumber').val();
+/*     alert('name' + name);
+    alert('birthday' +birthday);
+    alert('postnumber' + postnumber); */
+    $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8089/csvdownload',
+            data:{      
+                name : name,      
+                birthday : birthday,      
+                postnumber : postnumber  },   
+            success: function(data) {
+            	alert(data);
+            }
+    });
+ 
+    }
+    </script>
 </html>

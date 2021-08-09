@@ -17,15 +17,15 @@ public class CreateUserInfoController {
 
 	@Autowired
 	UserInfoService userInfoService;
-	
+
 	@RequestMapping("/createuserinfo")
 	public ModelAndView createUserInfo() {
-		
-		ModelAndView mv =new ModelAndView("createuserinfo");
-		
+
+		ModelAndView mv = new ModelAndView("createuserinfo");
+
 		return mv;
 	}
-	
+
 	/**
 	 * create user info
 	 * 
@@ -46,8 +46,8 @@ public class CreateUserInfoController {
 		userinfoobj.setName(name);
 		userinfoobj.setSex(sex);
 		userinfoobj.setBirthday(birthday);
-		String str=postnumber;
-		 String str1=str.replaceAll("[\\pP\\p{Punct}]","");
+		String str = postnumber;
+		String str1 = str.replaceAll("[\\pP\\p{Punct}]", "");
 		userinfoobj.setPostnumber(str1);
 		userinfoobj.setAddress(address);
 

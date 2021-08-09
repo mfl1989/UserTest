@@ -1,17 +1,13 @@
 package jp.test.Entity;
 
-
-import java.sql.Timestamp;
-import java.util.List;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.Specification;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -95,7 +91,5 @@ public class UserInfo {
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
-
-
 
 }

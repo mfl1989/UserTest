@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Field;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -118,7 +116,7 @@ public class UserInfoService {
 		File file = new File("d:\\test.csv");
 		OutputStreamWriter ow = new OutputStreamWriter(new FileOutputStream(file), "utf-8");
 		ow.write(titles);
-		for(String l : userlist) {
+		for (String l : userlist) {
 			ow.write(l);
 			ow.flush();
 		}
@@ -133,7 +131,7 @@ public class UserInfoService {
 	 * @throws IllegalAccessException
 	 */
 	public void testCsv(List<UserInfoObject> lists) throws IOException, Exception, Exception {
-		String titles =  "No.,名前, 性別, 生年月日, 郵便番号\n";
+		String titles = "No.,名前, 性別, 生年月日, 郵便番号\n";
 		String[] propertys = new String[] { "userId", "name", "sex", "birthday", "postnubmber" };
 //		List<UserInfo> lists = userInfoRep.findAll();
 		List<String> userlist = new ArrayList<String>();
@@ -142,7 +140,8 @@ public class UserInfoService {
 			StringBuffer stringBuilder1 = new StringBuffer(list.getPostnumber());
 			stringBuilder1.insert(3, "-");
 			list.setPostnumber(stringBuilder1.toString());
-			row =  list.getUserId()+","+list.getName()+","+list.getSex()+","+list.getBirthday()+","+list.getPostnumber()+"\n";
+			row = list.getUserId() + "," + list.getName() + "," + list.getSex() + "," + list.getBirthday() + ","
+					+ list.getPostnumber() + "\n";
 			userlist.add(row);
 			System.out.println(row);
 		}
@@ -152,6 +151,7 @@ public class UserInfoService {
 
 	/**
 	 * 検索
+	 * 
 	 * @param name
 	 * @param birthday
 	 * @param postnumber

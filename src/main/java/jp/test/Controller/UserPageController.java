@@ -2,26 +2,20 @@ package jp.test.Controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import jp.test.Entity.UserInfo;
 import jp.test.Object.UserInfoObject;
 import jp.test.Service.UserInfoService;
 import jp.test.repository.UserInfoRepository;
@@ -62,7 +56,7 @@ public class UserPageController {
 	 * @return
 	 */
 	@PostMapping("/search")
-	public ModelAndView secrch(@RequestParam("userName") String name, @RequestParam("birthday") String birthday,
+	public ModelAndView secrch(@RequestParam("name") String name, @RequestParam("birthday") String birthday,
 			@RequestParam("postnumber") String postnumber) {
 		ModelAndView mav = new ModelAndView("userpage");
 
@@ -73,30 +67,49 @@ public class UserPageController {
 			birthdayDate = Date.valueOf(birthday);
 		}
 
-		ArrayList<UserInfoObject> userInfoList = (ArrayList<UserInfoObject>) userInfoService.searchUserInfo(name, birthdayDate, postnumber);
+		List<UserInfoObject> userInfoList = userInfoService.searchUserInfo(name, birthdayDate, postnumber);
 		mav.addObject("info", userInfoList);
-
+		mav.addObject("birthday", birthday);
+		mav.addObject("postnumber", postnumber);
+		mav.addObject("name", name);
 		return mav;
 
 	}
 
+	/**
+	 * csvダウンロード
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("/csvdownload")
-	public ModelAndView csvOutPut(@RequestParam("info") List<UserInfoObject> info) throws Exception {
-		ModelAndView mav = new ModelAndView("userpage");
+	@ResponseBody
+	public String csvOutPut(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String name = request.getParameter("name");
+		String postnumber = request.getParameter("postnumber");
+		String birthday = request.getParameter("birthday");
 
-		
-		
-		try {
-			userInfoService.testCsv(info);
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			System.out.println("没跑到");
-			e.printStackTrace();
-			
-			
+		Date birthdayDate = null;
+		if (!birthday.equals("")) {
+
+			birthdayDate = Date.valueOf(birthday);
 		}
 
-		return mav;
+		List<UserInfoObject> userInfoList = userInfoService.searchUserInfo(name, birthdayDate, postnumber);
+
+		try {
+
+			userInfoService.testCsv(userInfoList);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+
+			e.printStackTrace();
+			return "Error!!!!!!!";
+
+		}
+
+		return "Success!!!!!!!";
 	}
 
 }

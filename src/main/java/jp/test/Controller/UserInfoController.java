@@ -19,7 +19,7 @@ public class UserInfoController {
 	UserInfoService userInfoService;
 	
 	@RequestMapping("/userinfo/{id}")
-	public ModelAndView userInfo(@PathVariable ("id")int userId) {
+	public ModelAndView userInfo(@PathVariable("id") int userId) {
 		
 		ModelAndView mv =new ModelAndView("userinfo");
 		UserInfoObject userInfoObj =userInfoService.findInfoById(userId);
